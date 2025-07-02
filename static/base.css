@@ -1,0 +1,45 @@
+body {
+    background-color: #fff;
+    color: #000;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 40px;
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.quote-container {
+  max-width: 700px;
+  margin: 0 auto 60px auto;
+  padding-left: 20px;
+  border-left: 4px solid #000;
+
+  display: flex;
+  flex-wrap: wrap; /* чтобы источник мог переноситься, если нужно */
+  align-items: flex-end; /* выравниваем по нижнему краю */
+  gap: 10px; /* небольшой отступ между цитатой и источником */
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-style: italic;
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.quote-source {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #333;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}

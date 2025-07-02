@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Random Quote{% endblock %}
+{% block content %}
+<h1>Случайная цитата</h1>
+<blockquote class="quote-container">
+  <p class="quote-text">
+    {{ quote.text }}
+  </p>
+  <div class="quote-source">
+      {{ quote.source.name }} - {{ quote.source.author.name }}
+  </div>
+</blockquote>
+{% endblock %}
