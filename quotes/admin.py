@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Quote, Source
 
-# Register your models here.
+admin.site.register(Source)
+admin.site.register(Quote)

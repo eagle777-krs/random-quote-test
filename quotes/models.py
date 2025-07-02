@@ -1,4 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from numpy.lib.utils import source
+
 
 class SourceType(models.TextChoices):
     BOOK = 'book', 'Book'
@@ -20,6 +23,15 @@ class Quote(models.Model):
     views = models.IntegerField(default=0, null=False, blank=False)
     likes = models.IntegerField(default=0, null=False, blank=False)
     dislikes = models.IntegerField(default=0, null=False, blank=False)
+
+    def clean(self):
+        count = Quote.subject.filter(source=self.source).exclude(pk=self.pk).count()
+        if count >= 3:
+            raise ValidationError('У этого источника уже 3 цитаты')
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.text[:50]
