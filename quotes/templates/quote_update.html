@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Update Quote{% endblock %}
+{% block content %}
+<h1>Редактировать цитату</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>Цитата</legend>
+            {{ quote_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Выбрать источник</legend>
+            {{ existing_source_form.as_p }}
+        </fieldset>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <p>
+        <button onclick="window.history.back()">Назад</button>
+        <a href="{% url 'quotes:index' %}"><button type="button">На главную</button></a>
+    </p>
+{% endblock %}

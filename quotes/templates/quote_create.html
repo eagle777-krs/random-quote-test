@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Create Quote{% endblock %}
+{% block content %}
+<h1>Создать цитату</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <legend>Выбрать существующего автора</legend>
+            {{ existing_author_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Или добавить нового автора</legend>
+            {{ author_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Выбрать существующий источник</legend>
+            {{ existing_source_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Или добавить новый источник</legend>
+            {{ source_form.as_p }}
+        </fieldset>
+
+        <fieldset>
+            <legend>Новая цитата</legend>
+            {{ quote_form.as_p }}
+        </fieldset>
+
+        <button type="submit">Создать</button>
+    </form>
+
+    <p>
+        <button onclick="window.history.back()">Назад</button>
+        <a href="{% url 'quotes:index' %}"><button type="button">На главную</button></a>
+    </p>
+{% endblock %}

@@ -9,10 +9,10 @@
 <h1>Случайная цитата</h1>
 <blockquote class="quote-container">
   <p class="quote-text">
-    {{ quote.text }}
+    <a href="{% url 'quotes:quote_detail' quote.id %}">{{ quote.text }}</a>
   </p>
   <div class="quote-source">
-      {{ quote.source.name }} {{ quote.source.author.name }}
+    {{ quote.source.name }} {{ quote.source.author.name }}
   </div>
   <div>Количество просмотров данной цитаты: {{ quote.views }}</div>
 </blockquote>
@@ -33,4 +33,9 @@
 </button>
 
 </form>
+<div class="vote-form">
+  <a href="{% url 'quotes:create_quote' %}" class="vote-btn" style="text-decoration: none; color: inherit;">
+    ➕ Создать цитату
+  </a>
+</div>
 {% endblock %}

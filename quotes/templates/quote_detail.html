@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Quote Detail{% endblock %}
+{% block content %}
+<h1>Цитата</h1>
+
+    <blockquote>
+        {{ quote.text|linebreaksbr }}
+    </blockquote>
+
+    <p><strong>Автор:</strong> {{ quote.source.author.name }}</p>
+    <p><strong>Источник:</strong> {{ quote.source.name }}</p>
+
+    <p>
+        <a href="{% url 'quotes:update_quote' pk=quote.pk %}">Редактировать</a> |
+        <a href="{% url 'quotes:delete_quote' pk=quote.pk %}">Удалить</a>
+    </p>
+
+    <p>
+        <a href="{% url 'quotes:index' %}">На главную</a>
+    </p>
+{% endblock %}
