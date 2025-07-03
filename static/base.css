@@ -57,3 +57,54 @@ h1 {
   white-space: nowrap;
 }
 
+.top-left-container {
+    position: fixed
+    top: 0;
+    left: 0;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border-bottom-right-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+.top-left-container a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
+  }
+
+.vote-form {
+  margin-top: 10px;
+}
+
+.vote-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.vote-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.like-count, .dislike-count {
+  font-weight: bold;
+  color: #333;
+}
+
+.vote-btn.active {
+  background-color: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.vote-btn.active.dislike {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}

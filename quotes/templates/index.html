@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Random Quote{% endblock %}
+{% block button %}
+<div class="top-left-container">
+<a href="{% url 'logout'%}" class="top-link">Выйти</a>
+</div>
+{% endblock %}
 {% block content %}
 <h1>Случайная цитата</h1>
 <blockquote class="quote-container">
@@ -11,4 +16,21 @@
   </div>
   <div>Количество просмотров данной цитаты: {{ quote.views }}</div>
 </blockquote>
+<form method="post" action="{% url 'quotes:vote_quote' %}" class="vote-form d-flex align-items-center gap-2">
+  {% csrf_token %}
+  <input type="hidden" name="quote_id" value="{{ quote.id }}">
+
+  <button type="submit" name="type" value="like"
+        class="btn btn-outline-success vote-btn {% if user_vote_type == 'like' %}active{% endif %}"
+        title="Поставить лайк">
+  👍 Лайк <span class="like-count">{{ quote.likes }}</span>
+</button>
+
+<button type="submit" name="type" value="dislike"
+        class="btn btn-outline-danger vote-btn {% if user_vote_type == 'dislike' %}active dislike{% endif %}"
+        title="Поставить дизлайк">
+  👎 Дизлайк <span class="dislike-count">{{ quote.dislikes }}</span>
+</button>
+
+</form>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import render, redirect
-from .models import User
 from .forms import UserLoginForm, UserRegistrationForm
+from django.contrib.auth import login, logout, authenticate
 
 def register_view(request):
     if request.method == 'POST':
@@ -19,13 +19,16 @@ def login_view(request):
     if form.is_valid():
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
-        try:
-            user = User.objects.get(username=username)
-            if check_password(password, user.password):
-                request.session['user_id'] = user.id
-                return redirect('quotes:index')
-            else:
-                form.add_error('password', 'Неверный пароль')
-        except User.DoesNotExist:
-            form.add_error('username', 'Пользователь не найден')
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('quotes:index')
+        else:
+            form.add_error(None, 'Неверное имя пользователя или пароль')
+
     return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
