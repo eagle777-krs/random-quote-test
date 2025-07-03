@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<h2>Вход</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+    <div style="color: red;">
+        {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <p>
+        {{ form.username.label_tag }}<br>
+        {{ form.username }}
+        {% if form.username.errors %}
+            <br><span style="color: red;">{{ form.username.errors }}</span>
+        {% endif %}
+    </p>
+
+    <p>
+        {{ form.password.label_tag }}<br>
+        {{ form.password }}
+        {% if form.password.errors %}
+            <br><span style="color: red;">{{ form.password.errors }}</span>
+        {% endif %}
+    </p>
+
+    <button type="submit">Войти</button>
+</form>
+
+<p>Если у вас нет аккаунта, <a href="{% url 'register' %}">зарегистрируйтесь здесь</a>.</p>
+{% endblock %}

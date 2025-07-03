@@ -7,7 +7,8 @@
     {{ quote.text }}
   </p>
   <div class="quote-source">
-      {{ quote.source.name }} - {{ quote.source.author.name }}
+      {{ quote.source.name }} {{ quote.source.author.name }}
   </div>
+  <div>Количество просмотров данной цитаты: {{ quote.views }}</div>
 </blockquote>
 {% endblock %}

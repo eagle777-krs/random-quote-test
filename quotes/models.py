@@ -10,7 +10,7 @@ class SourceType(models.TextChoices):
     PUBLIC_SPEECH = 'public_speech', 'Public Speech'
 
 class Author(models.Model):
-    name = models.CharField(max_length=150, unique=True)
+    name = models.CharField(max_length=150, unique=True, blank=True)
 
     def __str__(self):
         return self.name

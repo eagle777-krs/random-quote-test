@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 import random
 from .models import Quote
@@ -9,6 +10,7 @@ def get_weighted_random_quote():
     weights = [q.weight for q in quotes]
     return random.choices(quotes, weights=weights, k=1)[0]
 
+@login_required
 def index_view(request):
     quote = get_weighted_random_quote()
     quote.views += 1
