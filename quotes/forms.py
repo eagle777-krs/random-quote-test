@@ -1,43 +1,33 @@
+# forms.py
+
 from django import forms
-from .models import Quote, Source, Author
-
-class AuthorForm(forms.ModelForm):
-    class Meta:
-        model = Author
-        fields = ['name']
-        widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Введите имя автора'})
-        }
-
-class SourceForm(forms.ModelForm):
-    class Meta:
-        model = Source
-        fields = ['name', 'type']
-        widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Название источника'}),
-        }
+from .models import Quote
 
 class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
-        fields = ['text', 'weight']
+        fields = ['text', 'weight', 'source']
         widgets = {
-            'text': forms.Textarea(attrs={'placeholder': 'Введите текст цитаты', 'rows': 4}),
-            'weight': forms.NumberInput(attrs={'placeholder': 'Приоритет цитаты'})
+            'text': forms.Textarea(attrs={'placeholder': 'Текст цитаты'}),
+            'weight': forms.NumberInput(attrs={'placeholder': 'Вес'}),
+            'source': forms.Select()
         }
 
-class ExistingAuthorForm(forms.Form):
-    existing_author = forms.ModelChoiceField(
-        queryset=Author.objects.all().order_by('name'),
-        required=False,
-        label='Выбрать существующего автора',
-        empty_label='Выберите автора или создайте нового'
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['source'].required = True  # источник обязателен
 
-class ExistingSourceForm(forms.Form):
-    existing_source = forms.ModelChoiceField(
-        queryset=Source.objects.all().order_by('name'),
-        required=False,
-        label='Выбрать существующий источник',
-        empty_label='Выберите источник или создайте новый'
-    )
+
+class QuoteUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Quote
+        fields = ['text', 'weight', 'source']
+        widgets = {
+            'text': forms.Textarea(attrs={'placeholder': 'Текст цитаты'}),
+            'weight': forms.NumberInput(attrs={'placeholder': 'Вес'}),
+            'source': forms.Select()
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['source'].required = True
