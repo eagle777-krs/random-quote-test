@@ -8,6 +8,7 @@ import random
 from .models import Quote, Vote, VoteType
 from .forms import QuoteForm, AuthorForm, SourceForm, ExistingAuthorForm, ExistingSourceForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 def get_weighted_random_quote():
     quotes = list(Quote.objects.all())
@@ -160,3 +161,27 @@ def delete_quote(request, pk):
         quote.delete()
         return redirect('quotes:index')
     return render(request, 'quote_confirm_delete.html', {'quote': quote})
+
+@login_required
+def browse_quotes(request):
+    q = Quote.objects.all()
+    search_query = request.GET.get('q', '').strip()
+    top_10_by_likes = request.GET.get('top_10_by_likes')
+    top_10_by_dislikes = request.GET.get('top_10_by_dislikes')
+
+    if search_query:
+        q = q.filter(
+            Q(text__icontains=search_query) |
+            Q(source__name__icontains=search_query) |
+            Q(source__author__name__icontains=search_query)
+        )
+
+    if top_10_by_likes:
+        q = q.order_by('-likes')[:10]
+    elif top_10_by_dislikes:
+        q = q.order_by('-dislikes')[:10]
+
+    return render(request, 'browse_quotes.html', {'quotes': q, 'search_query': search_query})
+
+
+

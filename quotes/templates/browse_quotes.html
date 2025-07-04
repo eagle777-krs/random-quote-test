@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Выбор цитат</h1>
+
+<form method="get" action="">
+    <input
+        type="text"
+        name="q"
+        placeholder="Поиск по цитате, автору, источнику"
+        value="{{ search_query|default:'' }}"
+    />
+    <button type="submit">Поиск</button>
+</form>
+
+<div style="margin-top: 10px;">
+    <a href="?top_10_by_likes=1{% if search_query %}&q={{ search_query }}{% endif %}">
+        <button>Топ 10 по лайкам</button>
+    </a>
+    <a href="?top_10_by_dislikes=1{% if search_query %}&q={{ search_query }}{% endif %}">
+        <button>Топ 10 по дизлайкам</button>
+    </a>
+</div>
+
+{% if quotes %}
+    <ul>
+        {% for q in quotes %}
+            <li>
+                <blockquote>
+                    <p>{{ q.text }}</p>
+                    <footer>
+                        Источник: {{ q.source.name }}<br>
+                        Автор: {{ q.source.author.name }}
+                    </footer>
+                    <p>
+                        👍 {{ q.likes }}
+                        👎 {{ q.dislikes }}
+                    </p>
+                </blockquote>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Нет цитат для отображения. Выберите фильтр.</p>
+{% endif %}
+
+{% endblock %}
