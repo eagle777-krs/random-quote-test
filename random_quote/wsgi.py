@@ -16,8 +16,8 @@ if project_path not in sys.path:
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'random_quote.settings'
 
-activate_this = '/home/Lew77795/.virtualenvs/yourenv/bin/activate_this.py'
-exec(open(activate_this).read(), {'__file__': activate_this})
+# activate_this = '/home/Lew77795/.virtualenvs/.venv/bin/activate_this.py'
+# exec(open(activate_this).read(), {'__file__': activate_this})
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
