@@ -10,16 +10,14 @@ https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
 import os
 import sys
 
-project_home = '/home/Lew77795/random-quote-test'
-if project_home not in sys.path:
-    sys.path.insert(0, project_home)
+project_path = '/home/Lew77795/random-quote-test'
+if project_path not in sys.path:
+    sys.path.insert(0, project_path)
 
-venv_path = '/home/Lew77795/random_quote/venv'
-activate_env = os.path.join(venv_path, 'bin/activate_this.py')
-with open(activate_env) as f:
-    exec(f.read(), {'__file__': activate_env})
+os.environ['DJANGO_SETTINGS_MODULE'] = 'random_quote.settings'
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'random_quote.settings')
+activate_this = '/home/Lew77795/.virtualenvs/yourenv/bin/activate_this.py'
+exec(open(activate_this).read(), {'__file__': activate_this})
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
